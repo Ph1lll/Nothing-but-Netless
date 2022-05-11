@@ -111,4 +111,9 @@ void autonomous() {}
  */
 void opcontrol()
 {
+	while (1)
+	{
+	lMotor.move(oleana.get_analog(ANALOG_LEFT_Y) + oleana.get_analog(ANALOG_RIGHT_X));
+	rMotor.move(oleana.get_analog(ANALOG_LEFT_Y) - oleana.get_analog(ANALOG_RIGHT_X));
+	}
 }
