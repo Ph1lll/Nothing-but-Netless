@@ -83,37 +83,25 @@ void disabled() {}
  */
 void competition_initialize() {}
 
-/**
- * Runs the user autonomous code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the autonomous
- * mode. Alternatively, this function may be called in initialize or opcontrol
- * for non-competition testing purposes.
- *
- * If the robot is disabled or communications is lost, the autonomous task
- * will be stopped. Re-enabling the robot will restart the task, not re-start it
- * from where it left off.
- */
 void autonomous() {}
 
-/**
- * Runs the operator control code. This function will be started in its own task
- * with the default priority and stack size whenever the robot is enabled via
- * the Field Management System or the VEX Competition Switch in the operator
- * control mode.
- *
- * If no competition control is connected, this function will run immediately
- * following initialize().
- *
- * If the robot is disabled or communications is lost, the
- * operator control task will be stopped. Re-enabling the robot will restart the
- * task, not resume it from where it left off.
- */
 void opcontrol()
 {
 	while (1)
 	{
+
+	// Moving the drivetrain
 	lMotor.move(oleana.get_analog(ANALOG_LEFT_Y) + oleana.get_analog(ANALOG_RIGHT_X));
 	rMotor.move(oleana.get_analog(ANALOG_LEFT_Y) - oleana.get_analog(ANALOG_RIGHT_X));
+	
+	// Flywheel
+	if (oleana.get_digital(DIGITAL_R2)) {
+		lFlywheel.move(127);
+		rFlywheel.move(127);
+		pullup.move(127);
+	} else {
+		lFlywheel.move(0);
+		rFlywheel.move(0);
+		pullup.move(0);
 	}
 }
