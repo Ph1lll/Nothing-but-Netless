@@ -115,5 +115,17 @@ void opcontrol()
 	{
 	lMotor.move(oleana.get_analog(ANALOG_LEFT_Y) + oleana.get_analog(ANALOG_RIGHT_X));
 	rMotor.move(oleana.get_analog(ANALOG_LEFT_Y) - oleana.get_analog(ANALOG_RIGHT_X));
+	
+	if (oleana.get_digital(DIGITAL_L2) || oleana.get_digital(DIGITAL_R1) || oleana.get_digital(DIGITAL_L1) || oleana.get_digital(DIGITAL_R2)) {
+		lLaunch.move(127);
+		rLaunch.move(127);
+		pullup.move(127);
+	} else {
+		lLaunch.move(0);
+		rLaunch.move(0);
+		pullup.move(0);	
+	}
+	
+	
 	}
 }
