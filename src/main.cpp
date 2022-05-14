@@ -83,27 +83,53 @@ void disabled() {}
  */
 void competition_initialize() {}
 
-void autonomous() {}
+void autonomous()
+{
+	lLaunch.move(122);
+	rLaunch.move(122);
+	pullup.move(127);
+	delay(2500);
+	lLaunch.move(0);
+	rLaunch.move(0);
+	pullup.move(0);
+}
 
 void opcontrol()
 {
+	int rev = 1;
+
 	while (1)
 	{
 
-	// Moving the drivetrain
-	lMotor.move(oleana.get_analog(ANALOG_LEFT_Y) + oleana.get_analog(ANALOG_RIGHT_X));
-	rMotor.move(oleana.get_analog(ANALOG_LEFT_Y) - oleana.get_analog(ANALOG_RIGHT_X));
-	
-	if (oleana.get_digital(DIGITAL_L2) || oleana.get_digital(DIGITAL_R1) || oleana.get_digital(DIGITAL_L1) || oleana.get_digital(DIGITAL_R2)) {
-		lLaunch.move(127);
-		rLaunch.move(127);
-		pullup.move(127);
-	} else {
-		lLaunch.move(0);
-		rLaunch.move(0);
-		pullup.move(0);	
-	}
-	
-	
+		// Moving the drivetrain
+		lMotor.move((oleana.get_analog(ANALOG_LEFT_Y) * rev) + oleana.get_analog(ANALOG_RIGHT_X));
+		rMotor.move((oleana.get_analog(ANALOG_LEFT_Y) * rev) - oleana.get_analog(ANALOG_RIGHT_X));
+
+		if (oleana.get_digital(DIGITAL_R1) || oleana.get_digital(DIGITAL_R2))
+		{
+			lLaunch.move(127);
+			rLaunch.move(127);
+			pullup.move(127);
+		}
+		else
+		{
+			lLaunch.move(0);
+			rLaunch.move(0);
+			pullup.move(0);
+		}
+
+		if (oleana.get_digital_new_press(DIGITAL_L1) || oleana.get_digital_new_press(DIGITAL_L2))
+		{
+			if (rev = -1)
+			{
+				rev = 1;
+				oleana.print(0, 0, "Normal");
+			}
+			if (rev = 1)
+			{
+				rev = -1;
+				oleana.print(0, 0, "Reversed");
+			}
+		}
 	}
 }
