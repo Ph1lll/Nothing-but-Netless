@@ -8,7 +8,7 @@ Controller archie(CONTROLLER_PARTNER);
 Motor lMotor(9, MOTOR_GEARSET_18, false);
 Motor rMotor(10, MOTOR_GEARSET_18, true);
 
-// Launcher
+// Launcher Mechanism
 Motor lLaunch(11, MOTOR_GEARSET_18, true);
 Motor rLaunch(20, MOTOR_GEARSET_18, false);
 Motor pullup(12, MOTOR_GEARSET_18, false);
